@@ -77,5 +77,11 @@ public class TankDrive extends SubsystemBase {
         velocidad=0;
     }
 
+    public void getOdometry() {
+    }
+
+    public void outMotoresAuto(double d, double e, double f, double g) {
+    }
+
     //------------------------funciones del subsystema---------------//
 }
