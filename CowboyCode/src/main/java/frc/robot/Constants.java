@@ -1,7 +1,6 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 public final class Constants {
   //-------------------controles--------------//
   //puertos donde conectas los controles
@@ -16,8 +15,8 @@ public final class Constants {
   public static final int kDriveLeft1 = 3;
   public static final int kDriveLeft2 = 4;
   public static final int kDriverControllerPort = 0;
-public static final int Garra = 0;
-public static final int kShooter1Id = 0;
-public static final int kIntake = 0;
+public static final int kShooter1Id = 6;
+public static final int kIntake = 7;
+public static final int servo = 0;
 public static double kShooterDemand;
 }

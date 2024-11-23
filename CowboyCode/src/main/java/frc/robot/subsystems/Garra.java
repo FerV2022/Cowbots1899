@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -10,9 +11,9 @@ public class Garra extends SubsystemBase {
 
     //-----------------------características---------------------//
     //Hardware
-    TalonSRX Garra;
+    Servo servo;
     //Variables de logica
-    double velocidad;
+    double posicion;
 
     //INPUTS
 
@@ -22,8 +23,14 @@ public class Garra extends SubsystemBase {
 
     // constructor que se ejecuta una vez
     public Garra(){
-        Garra = new TalonSRX(Constants.Garra);
-        velocidad = 0;
+        servo  = new Servo(Constants.servo);
+        posicion = 0;
+
+    }
+
+    public void cambiarposicion() {
+        posicion = 1-posicion;
+        servo.set(posicion);
     }
 //ver dirección
     /*public void eat(double Rtrigger, double Ltrigger){
@@ -37,18 +44,11 @@ public class Garra extends SubsystemBase {
         }
 
     }*/
-    public void eat(double Rstick){
-        if(Rstick>Constants.kStickTolerance){
-            Garra.set(ControlMode.PercentOutput, 0.4);
-        }else if(Rstick<-Constants.kStickTolerance){
-            Garra.set(ControlMode.PercentOutput, -0.4);
-        }else{
-            Garra.set(ControlMode.PercentOutput, 0);
-        }
-    }
+     
     
     public void stop(){
-        velocidad=0;
+        posicion=0;
+        servo.set(posicion);
     }
 
     //------------------------funciones del subsystema---------------//

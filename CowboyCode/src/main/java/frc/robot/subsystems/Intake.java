@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
         }
 
     }*/
-    public void eat(double Rstick){
+    public void comer(double Rstick){
         if(Rstick>Constants.kStickTolerance){
             intake.set(ControlMode.PercentOutput, 0.4);
         }else if(Rstick<-Constants.kStickTolerance){
@@ -47,7 +47,7 @@ public class Intake extends SubsystemBase {
         }
     }
     
-    public void stop(){
+    public void parar(){
         velocidad=0;
     }
 
