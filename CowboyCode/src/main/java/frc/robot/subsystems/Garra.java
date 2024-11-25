@@ -12,9 +12,10 @@ public class Garra extends SubsystemBase {
     //-----------------------características---------------------//
     //Hardware
     Servo servo;
+    TalonSRX fedeergarra;
     //Variables de logica
     double posicion;
-
+    boolean ClawActive = false; 
     //INPUTS
 
     //OUTPUTS
@@ -24,6 +25,7 @@ public class Garra extends SubsystemBase {
     // constructor que se ejecuta una vez
     public Garra(){
         servo  = new Servo(Constants.servo);
+        fedeergarra = new TalonSRX(Constants.fedeergarra);
         posicion = 0;
 
     }
@@ -31,7 +33,11 @@ public class Garra extends SubsystemBase {
     public void cambiarposicion() {
         posicion = 1-posicion;
         servo.set(posicion);
+
+
     }
+
+    
 //ver dirección
     /*public void eat(double Rtrigger, double Ltrigger){
         double direct=Rtrigger-Ltrigger; //varibale que suma velocidad
@@ -44,13 +50,29 @@ public class Garra extends SubsystemBase {
         }
 
     }*/
-     
-    
-    public void stop(){
-        posicion=0;
-        servo.set(posicion);
+    public void comer(boolean isClawActive){
+        ClawActive = isClawActive;
+        if (ClawActive){
+            fedeergarra.set( ControlMode.PercentOutput, Constants.fedeerspeed);
+        
+        }
+        else{
+            fedeergarra.set(ControlMode.PercentOutput, 0);
+        
+        }
     }
 
+
+    public void escupir(boolean isClawActive){
+        ClawActive = isClawActive;
+        if (ClawActive){
+            fedeergarra.set( ControlMode.PercentOutput, -Constants.fedeerspeed);
+        
+        }
+        else{
+            fedeergarra.set(ControlMode.PercentOutput, 0);
+        
+        }
+    }
     //------------------------funciones del subsystema---------------//
 }
-    

@@ -40,7 +40,12 @@ public class Intake extends SubsystemBase {
     public void comer(double Rstick){
         if(Rstick>Constants.kStickTolerance){
             intake.set(ControlMode.PercentOutput, 0.4);
-        }else if(Rstick<-Constants.kStickTolerance){
+        }else{
+            intake.set(ControlMode.PercentOutput, 0);
+        }
+    }
+    public void escupir(double Rstick){
+        if(Rstick>Constants.kStickTolerance){
             intake.set(ControlMode.PercentOutput, -0.4);
         }else{
             intake.set(ControlMode.PercentOutput, 0);

@@ -33,7 +33,50 @@ public class ControlBoard {
         }
         return yValue;
     }
+
+
+// Control de driver para chasis, comer y escupir con intake
+    public double getDriverLeftTrigger(){
+         double LeftTrigger  = driver.getLeftTriggerAxis(); // Left Trigger escupe
+         return LeftTrigger;
+    }
     
+    public double getDriverRightTigger(){
+            double RightTrigger = driver.getRightTriggerAxis(); // Right Trigger come
+            return RightTrigger;
+    }
+
+
+
+// Control de mecanismos shooter, garra 
+    public boolean getmecanismosAButton(){
+        return mecanisms.getAButtonPressed(); // Servo con button A
+    }
+
+    // Shooter
+    public double getMecanismosLeftTrigger(){
+         double LeftTrigger  = driver.getLeftTriggerAxis(); // Left Trigger escupe
+         return LeftTrigger;
+    }
+    
+    public double getMecanismosRightTrigger(){
+            double RightTrigger = driver.getRightTriggerAxis(); // Right Trigger dispara
+            return RightTrigger;
+    }
+
+
+    // Garra motor
+    public boolean getMecanismosLeftBumper(){
+        return mecanisms.getLeftBumper(); // Left bumper escupe
+    }
+
+    public boolean getMecanismosRightBumper(){
+        return mecanisms.getRightBumper(); // Right bumper come
+    }
+
+
+
+
     public double right_x_stick_driver(){
         double xValue = driver.getRawAxis(3);
         if (Math.abs(xValue)<tolerance){

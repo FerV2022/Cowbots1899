@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlBoard.ControlBoard;
 
 import frc.robot.subsystems.TankDrive;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Garra;
+import frc.robot.subsystems.Shooter;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,7 +23,10 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private TankDrive mTankDrive;
+  private Intake mIntake;
   private ControlBoard mControlBoard;
+  private Garra mGarra;
+  private Shooter mShooter;
 
 
   /**
@@ -31,7 +38,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     mTankDrive = new TankDrive();
+    mIntake = new Intake();
     mControlBoard = new ControlBoard();
+    mGarra = new Garra();
+    mShooter = new Shooter();
   }
 
   /**
@@ -85,8 +95,44 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+
     mTankDrive.avanzar(mControlBoard.left_y_stick_driver(), mControlBoard.right_x_stick_driver());
+
+    
+    // -----------------------------------Intake------------------------  
+    mIntake.comer(mControlBoard.getDriverRightTigger()); // Trigger derecho comes
+    mIntake.escupir(mControlBoard.getDriverLeftTrigger()); // Trigger izquierdo escupe 
+
+// ------------------------  SERVO LINEAL -----------------------al presionar "A" una vez se extiende 
+    if (mControlBoard.getmecanismosAButton()){
+      mGarra.cambiarposicion(); // 
+    }
+
+      // -------------------------  Shooter -----------------------------------------------------------
+if (mControlBoard.getMecanismosLeftTrigger()>0.1){
+  mShooter.escupir(true);
+}
+
+else{
+  mShooter.escupir(false);
+}
+
+if (mControlBoard.getMecanismosRightTrigger()>0.1){
+  mShooter.shoot(true);
+}
+
+else{
+  mShooter.shoot(false);
+}
+
+///// -----------------------------------  Garra Motor---------------------------------------------------------
+
+mGarra.comer(mControlBoard.getMecanismosRightBumper());
+mGarra.escupir(mControlBoard.getMecanismosLeftBumper());
   }
+
+
+
 
   @Override
   public void testInit() {
