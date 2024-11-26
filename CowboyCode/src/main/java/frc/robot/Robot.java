@@ -2,7 +2,9 @@ package frc.robot;
 
 import java.util.ResourceBundle.Control;
 
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlBoard.ControlBoard;
@@ -33,6 +35,13 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+
+  private static final int PDH_CAN_ID = 1;
+  private static final int NUM_PDH_CHANNELS = 24;
+
+  PowerDistribution m_pdh = new PowerDistribution(PDH_CAN_ID, ModuleType.kRev);
+
+
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -42,6 +51,7 @@ public class Robot extends TimedRobot {
     mControlBoard = new ControlBoard();
     mGarra = new Garra();
     mShooter = new Shooter();
+
   }
 
   /**
@@ -98,7 +108,7 @@ public class Robot extends TimedRobot {
 
     mTankDrive.avanzar(mControlBoard.left_y_stick_driver(), mControlBoard.right_x_stick_driver());
 
-    
+
     // -----------------------------------Intake------------------------  
     mIntake.comer(mControlBoard.getDriverRightTigger()); // Trigger derecho comes
     mIntake.escupir(mControlBoard.getDriverLeftTrigger()); // Trigger izquierdo escupe 
