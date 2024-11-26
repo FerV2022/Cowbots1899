@@ -37,23 +37,23 @@ public class Intake extends SubsystemBase {
         }
 
     }*/
-    public void comer(double Rstick){
-        if(Rstick>Constants.kStickTolerance){
-            intake.set(ControlMode.PercentOutput, 0.4);
+    public void comer(double RTigger){
+        if(RTigger > 0){
+            intake.set(ControlMode.PercentOutput, RTigger);
         }else{
             intake.set(ControlMode.PercentOutput, 0);
         }
     }
-    public void escupir(double Rstick){
-        if(Rstick>Constants.kStickTolerance){
-            intake.set(ControlMode.PercentOutput, -0.4);
+    public void escupir(double LTrigger){
+        if(LTrigger > 0.15){
+            intake.set(ControlMode.PercentOutput, -LTrigger);
         }else{
             intake.set(ControlMode.PercentOutput, 0);
         }
     }
     
     public void parar(){
-        velocidad=0;
+        intake.set(ControlMode.PercentOutput, 0);
     }
 
     //------------------------funciones del subsystema---------------//

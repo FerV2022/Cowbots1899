@@ -20,7 +20,7 @@ public static final int kIntake = 7;
 public static final int servo = 0;
 public static final int kShooter5Id = 5;
 public static final int fedeergarra = 8;
-public static double kShooterDemand = 0.5;
-public static double kShooterEscupir = 0.3;
+public static double kShooterDemand = -0.5;
+public static double kShooterEscupir = -0.3;
 public static double fedeerspeed = 0.5;
 }

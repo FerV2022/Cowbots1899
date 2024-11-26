@@ -39,7 +39,7 @@ public class Shooter extends SubsystemBase{
     public void escupir(boolean inShooterActive){
         shooterActive = inShooterActive;
         if (shooterActive){
-            shooterMotor.set( Constants.kShooterEscupir);
+            shooterMotor.set(Constants.kShooterEscupir);
         
         }
         else{

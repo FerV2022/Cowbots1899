@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -67,10 +68,10 @@ public class TankDrive extends SubsystemBase {
 
 
         //cosas de la funcion
-        Right1.set(ControlBoard.PercentOutput, rightSpeed);
-        Right2.set(ControlBoard.PercentOutput, rightSpeed);
-        Left1.set(ControlBoard.PercentOutput, -leftSpeed);
-        Left2.set(ControlBoard.PercentOutput, -leftSpeed);
+        Right1.set(ControlMode.PercentOutput, rightSpeed);
+        Right2.set(ControlMode.PercentOutput, rightSpeed);
+        Left1.set(ControlMode.PercentOutput, -leftSpeed);
+        Left2.set(ControlMode.PercentOutput, -leftSpeed);
       }
 
     public void stop(){

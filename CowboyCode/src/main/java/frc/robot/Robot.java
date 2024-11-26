@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
 
 
     // -----------------------------------Intake------------------------  
-    mIntake.comer(mControlBoard.getDriverRightTigger()); // Trigger derecho comes
+    mIntake.comer(mControlBoard.getDriverRightTrigger()); // Trigger derecho comes
     mIntake.escupir(mControlBoard.getDriverLeftTrigger()); // Trigger izquierdo escupe 
 
 // ------------------------  SERVO LINEAL -----------------------al presionar "A" una vez se extiende 

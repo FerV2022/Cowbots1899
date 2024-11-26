@@ -20,14 +20,14 @@ public class ControlBoard {
     }
     //--------------funciones-----------//
     public double left_x_stick_driver(){
-        double xValue = driver.getRawAxis(1);
+        double xValue = driver.getRawAxis(0);
         if (Math.abs(xValue)<tolerance){
             xValue = 0;
         }
         return xValue;
     }
     public double left_y_stick_driver(){
-        double yValue = driver.getRawAxis(0);
+        double yValue = driver.getRawAxis(1);
         if (Math.abs(yValue)<tolerance){
             yValue = 0;
         }
@@ -35,32 +35,33 @@ public class ControlBoard {
     }
 
 
-// Control de driver para chasis, comer y escupir con intake
+// Control de driver para chasis
+//------------------------- comer y escupir con intake
     public double getDriverLeftTrigger(){
-         double LeftTrigger  = driver.getLeftTriggerAxis(); // Left Trigger escupe
+         double LeftTrigger  = driver.getRawAxis(2); // Left Trigger escupe
          return LeftTrigger;
     }
     
-    public double getDriverRightTigger(){
-            double RightTrigger = driver.getRightTriggerAxis(); // Right Trigger come
-            return RightTrigger;
+    public double getDriverRightTrigger(){
+            double RightTrigger = driver.getRawAxis(4); // Right Trigger come
+            return RightTrigger; //----------------------- en caso de no funcionar este era el número 3
     }
 
 
 
 // Control de mecanismos shooter, garra 
     public boolean getmecanismosAButton(){
-        return mecanisms.getAButtonPressed(); // Servo con button A
+        return mecanisms.getAButtonPressed(); // Servo (Garra) con button A
     }
 
     // Shooter
     public double getMecanismosLeftTrigger(){
-         double LeftTrigger  = driver.getLeftTriggerAxis(); // Left Trigger escupe
+         double LeftTrigger  = mecanisms.getLeftTriggerAxis(); // Left Trigger escupe
          return LeftTrigger;
     }
     
     public double getMecanismosRightTrigger(){
-            double RightTrigger = driver.getRightTriggerAxis(); // Right Trigger dispara
+            double RightTrigger = mecanisms.getRightTriggerAxis(); // Right Trigger dispara
             return RightTrigger;
     }
 
@@ -78,16 +79,11 @@ public class ControlBoard {
 
 
     public double right_x_stick_driver(){
-        double xValue = driver.getRawAxis(3);
+        double xValue = driver.getRawAxis(3); // en caso de no funcionar antes era número 4
         if (Math.abs(xValue)<tolerance){
             xValue = 0;
         }
         return xValue;
     }
-    public boolean driver_A_button(){
-        return driver.getAButton();
-    }
-    public boolean driver_B_button(){
-        return driver.getBButton();
-    }
+   
 }
