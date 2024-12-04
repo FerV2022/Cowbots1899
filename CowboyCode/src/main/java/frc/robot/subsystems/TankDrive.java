@@ -2,11 +2,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.ControlBoard.ControlBoard;
 
 public class TankDrive extends SubsystemBase {
 
@@ -23,8 +21,7 @@ public class TankDrive extends SubsystemBase {
     double leftSpeed;
     double realRightSpeed;
     double realLeftSpeed;
-
-    //INPUTS
+     //INPUTS
 
     //OUTPUTS
 
@@ -39,8 +36,7 @@ public class TankDrive extends SubsystemBase {
         //cosas que iniciamos
         velocidad=0;
     }
-
-    //------------------------funciones del subsystema---------------//
+ //------------------------funciones del subsystema---------------//
     /*public void avanzar(double yInput){
       //cosas de la funcion
       Right1.set(ControlMode.PercentOutput, yInput);
@@ -56,7 +52,9 @@ public class TankDrive extends SubsystemBase {
         rightSpeed = yInput + xInput;
         leftSpeed = yInput - xInput;
         }
-
+        realLeftSpeed=leftSpeed;
+        realRightSpeed=rightSpeed;
+/* 
         if(Math.abs(realRightSpeed)>Math.abs(rightSpeed)){
             realRightSpeed = realRightSpeed - 0.01;
         }else if(Math.abs(realRightSpeed)<Math.abs(rightSpeed)){
@@ -64,25 +62,23 @@ public class TankDrive extends SubsystemBase {
         }else{
             realRightSpeed = rightSpeed;
         }
+*/
+ //cosas de la funcion
+ Right1.set(ControlMode.PercentOutput, (realRightSpeed)*0.55);
+ Right2.set(ControlMode.PercentOutput, (realRightSpeed)*0.55);
+ Left1.set(ControlMode.PercentOutput, -realLeftSpeed);
+ Left2.set(ControlMode.PercentOutput, -realLeftSpeed);
+}
 
+public void stop(){
+ velocidad=0;
+}
 
+public void getOdometry() {
+}
 
-        //cosas de la funcion
-        Right1.set(ControlMode.PercentOutput, rightSpeed);
-        Right2.set(ControlMode.PercentOutput, rightSpeed);
-        Left1.set(ControlMode.PercentOutput, -leftSpeed);
-        Left2.set(ControlMode.PercentOutput, -leftSpeed);
-      }
+public void outMotoresAuto(double d, double e, double f, double g) {
+}
 
-    public void stop(){
-        velocidad=0;
-    }
-
-    public void getOdometry() {
-    }
-
-    public void outMotoresAuto(double d, double e, double f, double g) {
-    }
-
-    //------------------------funciones del subsystema---------------//
+//------------------------funciones del subsystema---------------//
 }

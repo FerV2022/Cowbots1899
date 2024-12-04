@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Servo;
@@ -13,6 +14,7 @@ public class Garra extends SubsystemBase {
     //Hardware
     Servo servo;
     TalonSRX fedeergarra;
+    double garravelocity;
     //Variables de logica
     double posicion;
     boolean ClawActive = false; 
@@ -21,22 +23,13 @@ public class Garra extends SubsystemBase {
     //OUTPUTS
 
     //-----------------------características---------------------//
-
-    // constructor que se ejecuta una vez
+ // constructor que se ejecuta una vez
     public Garra(){
         servo  = new Servo(Constants.servo);
         fedeergarra = new TalonSRX(Constants.fedeergarra);
         posicion = 0;
 
     }
-
-    public void cambiarposicion() {
-        posicion = 1-posicion;
-        servo.set(posicion);
-
-
-    }
-
     
 //ver dirección
     /*public void eat(double Rtrigger, double Ltrigger){
@@ -50,29 +43,25 @@ public class Garra extends SubsystemBase {
         }
 
     }*/
-    public void comer(boolean isClawActive){
-        ClawActive = isClawActive;
-        if (ClawActive){
-            fedeergarra.set( ControlMode.PercentOutput, Constants.fedeerspeed);
-        
+    public void comer(boolean Left, boolean Right,  boolean Abutton){
+        posicion = 0;
+        if(Abutton){
+            posicion = 1-posicion;
+            servo.set(posicion);  
+        }
+        if(Left){
+            fedeergarra.set(TalonSRXControlMode.PercentOutput,0.6);
+        }
+        else if(Right){
+            fedeergarra.set(TalonSRXControlMode.PercentOutput,-0.6);
         }
         else{
             fedeergarra.set(ControlMode.PercentOutput, 0);
         
         }
+
+        
     }
 
-
-    public void escupir(boolean isClawActive){
-        ClawActive = isClawActive;
-        if (ClawActive){
-            fedeergarra.set( ControlMode.PercentOutput, -Constants.fedeerspeed);
-        
-        }
-        else{
-            fedeergarra.set(ControlMode.PercentOutput, 0);
-        
-        }
-    }
     //------------------------funciones del subsystema---------------//
 }

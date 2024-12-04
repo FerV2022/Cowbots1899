@@ -2,9 +2,7 @@ package frc.robot;
 
 import java.util.ResourceBundle.Control;
 
-import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlBoard.ControlBoard;
@@ -23,25 +21,18 @@ import frc.robot.subsystems.Shooter;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
-  private TankDrive mTankDrive;
+private TankDrive mTankDrive;
   private Intake mIntake;
   private ControlBoard mControlBoard;
   private Garra mGarra;
   private Shooter mShooter;
 
 
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-
-  private static final int PDH_CAN_ID = 1;
-  private static final int NUM_PDH_CHANNELS = 24;
-
-  PowerDistribution m_pdh = new PowerDistribution(PDH_CAN_ID, ModuleType.kRev);
-
-
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -76,89 +67,63 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {}
+/** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+@Override
+public void autonomousInit() {
 
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
-  @Override
-  public void autonomousInit() {
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+  // schedule the autonomous command (example)
+  if (m_autonomousCommand != null) {
+    m_autonomousCommand.schedule();
   }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {}
-
-  @Override
-  public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
-  }
-
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {
-
-    mTankDrive.avanzar(mControlBoard.left_y_stick_driver(), mControlBoard.right_x_stick_driver());
-
-
-    // -----------------------------------Intake------------------------  
-    mIntake.comer(mControlBoard.getDriverRightTrigger()); // Trigger derecho comes
-    mIntake.escupir(mControlBoard.getDriverLeftTrigger()); // Trigger izquierdo escupe 
-
-// ------------------------  SERVO LINEAL -----------------------al presionar "A" una vez se extiende 
-    if (mControlBoard.getmecanismosAButton()){
-      mGarra.cambiarposicion(); // 
-    }
-
-      // -------------------------  Shooter -----------------------------------------------------------
-if (mControlBoard.getMecanismosLeftTrigger()>0.1){
-  mShooter.escupir(true);
 }
 
-else{
-  mShooter.escupir(false);
-}
+/** This function is called periodically during autonomous. */
+@Override
+public void autonomousPeriodic() {}
 
-if (mControlBoard.getMecanismosRightTrigger()>0.1){
-  mShooter.shoot(true);
-}
-
-else{
-  mShooter.shoot(false);
-}
-
-///// -----------------------------------  Garra Motor---------------------------------------------------------
-
-mGarra.comer(mControlBoard.getMecanismosRightBumper());
-mGarra.escupir(mControlBoard.getMecanismosLeftBumper());
+@Override
+public void teleopInit() {
+  // This makes sure that the autonomous stops running when
+  // teleop starts running. If you want the autonomous to
+  // continue until interrupted by another command, remove
+  // this line or comment it out.
+  if (m_autonomousCommand != null) {
+    m_autonomousCommand.cancel();
   }
+}
+ /** This function is called periodically during operator control. */
+ @Override
+ public void teleopPeriodic(){
+
+   mTankDrive.avanzar(mControlBoard.left_y_stick_driver(), mControlBoard.right_x_stick_driver());
+       
+   // -----------------------------------Intake------------------------  
+   mIntake.comer(mControlBoard.getDriverLeftTrigger(), mControlBoard.getDriverRightTrigger()); 
+   
+ 
+   // -------------------------  Shooter -----------------------------------------------------------
+   mShooter.shoot(mControlBoard.getMecanismosLeftTrigger(), mControlBoard.getMecanismosRightTrigger());
 
 
+   ///// -----------------------------------  Garra Motor---------------------------------------------------------
 
+   mGarra.comer(mControlBoard.getMecanismosLeftBumper(), mControlBoard.getMecanismosRightBumper(), mControlBoard.getmecanismosAButton());
+ }
 
-  @Override
-  public void testInit() {
-    // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
-  }
+ @Override
+ public void testInit() {
+   // Cancels all running commands at the start of test mode.
+   CommandScheduler.getInstance().cancelAll();
+ }
 
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
+ /** This function is called periodically during test mode. */
+ @Override
+ public void testPeriodic() {}
+ /** This function is called once when the robot is first started up. */
+ @Override
+ public void simulationInit() {}
 
-  /** This function is called once when the robot is first started up. */
-  @Override
-  public void simulationInit() {}
-
-  /** This function is called periodically whilst in simulation. */
-  @Override
-  public void simulationPeriodic() {}
+ /** This function is called periodically whilst in simulation. */
+ @Override
+ public void simulationPeriodic(){}
 }
