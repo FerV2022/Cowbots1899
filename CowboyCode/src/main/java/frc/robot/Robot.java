@@ -3,6 +3,7 @@ package frc.robot;
 import java.util.ResourceBundle.Control;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlBoard.ControlBoard;
@@ -107,8 +108,10 @@ public void teleopInit() {
 
    ///// -----------------------------------  Garra Motor---------------------------------------------------------
 
-   mGarra.comer(mControlBoard.getMecanismosLeftBumper(), mControlBoard.getMecanismosRightBumper(), mControlBoard.getmecanismosAButton());
- }
+   mGarra.comer(mControlBoard.getMecanismosLeftBumper(), mControlBoard.getMecanismosRightBumper(), mControlBoard.getMecanismosAButton(), mControlBoard.getMecanismosBButton());
+   SmartDashboard.putBoolean("Get B Button", mControlBoard.getMecanismosAButton());
+   SmartDashboard.putNumber("Servo position", mGarra.getPosicion());
+  }
 
  @Override
  public void testInit() {

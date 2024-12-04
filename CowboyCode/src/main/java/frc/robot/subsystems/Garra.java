@@ -26,8 +26,9 @@ public class Garra extends SubsystemBase {
  // constructor que se ejecuta una vez
     public Garra(){
         servo  = new Servo(Constants.servo);
+        servo.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);
         fedeergarra = new TalonSRX(Constants.fedeergarra);
-        posicion = 0;
+        posicion = -1;
 
     }
     
@@ -43,12 +44,15 @@ public class Garra extends SubsystemBase {
         }
 
     }*/
-    public void comer(boolean Left, boolean Right,  boolean Abutton){
-        posicion = 0;
+    public void comer(boolean Left, boolean Right,  boolean Abutton, boolean Bbutton){
         if(Abutton){
-            posicion = 1-posicion;
-            servo.set(posicion);  
+            posicion = 1.0; 
+        } 
+        else if(Bbutton){
+            posicion = -1.0;
         }
+        servo.setSpeed(posicion);
+        
         if(Left){
             fedeergarra.set(TalonSRXControlMode.PercentOutput,0.6);
         }
@@ -61,6 +65,10 @@ public class Garra extends SubsystemBase {
         }
 
         
+    }
+
+    public double getPosicion(){
+        return servo.get();
     }
 
     //------------------------funciones del subsystema---------------//

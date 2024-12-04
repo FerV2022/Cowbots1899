@@ -59,9 +59,7 @@ public class ControlBoard {
 
 
 // Control de mecanismos shooter, garra 
-    public boolean getmecanismosAButton(){
-        return mecanisms.getAButtonPressed(); // Servo con button A
-    }
+
 
     // Shooter--------------------------------------
     public double getMecanismosLeftTrigger(){
@@ -86,6 +84,12 @@ public class ControlBoard {
     public boolean getMecanismosAButton(){
         return mecanisms.getAButton();
     }
+
+    
+    public boolean getMecanismosBButton(){
+        return mecanisms.getBButton();
+    }
+
 
     public double right_x_stick_driver(){
         double xValue = driver.getRightX();
