@@ -7,11 +7,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.ControlBoard.ControlBoard;
-
+import frc.robot.commands.Autos.ActiveGarra;
+import frc.robot.commands.Autos.ActiveIntake;
+import frc.robot.commands.Autos.GetTimeAction;
+import frc.robot.commands.Autos.Movefront;
+import frc.robot.commands.Autos.Stopaction;
+import frc.robot.commands.Autos.movebackward;
 import frc.robot.subsystems.TankDrive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Garra;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.Timer;
 
 
 /**
@@ -22,11 +28,22 @@ import frc.robot.subsystems.Shooter;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-private TankDrive mTankDrive;
+  private TankDrive mTankDrive;
   private Intake mIntake;
   private ControlBoard mControlBoard;
   private Garra mGarra;
   private Shooter mShooter;
+  GetTimeAction mGetTimeAction;
+  Movefront mmMovefront;
+  Stopaction mStopaction;
+  GetTimeAction mAutoTimer = new GetTimeAction();
+  Movefront mMovefront = new Movefront();
+  Stopaction mStopaction2Stopaction = new Stopaction();
+  ActiveIntake MActiveIntakeIntake = new ActiveIntake();
+  ActiveGarra mActiveGarraGarra;
+  movebackward mmMovebackward2Movebackward = new movebackward();
+
+
 
 
 
@@ -43,6 +60,8 @@ private TankDrive mTankDrive;
     mControlBoard = new ControlBoard();
     mGarra = new Garra();
     mShooter = new Shooter();
+    mActiveGarraGarra = new ActiveGarra(mGarra);
+    
 
   }
 
@@ -71,6 +90,7 @@ private TankDrive mTankDrive;
 /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
 @Override
 public void autonomousInit() {
+ mAutoTimer.autoRelativeTimeControl();
 
   // schedule the autonomous command (example)
   if (m_autonomousCommand != null) {
@@ -80,7 +100,25 @@ public void autonomousInit() {
 
 /** This function is called periodically during autonomous. */
 @Override
-public void autonomousPeriodic() {}
+public void autonomousPeriodic() {
+  mAutoTimer.autoAbsoluteTimeControl();
+  double difTime = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
+  if(difTime<2.5){
+    mActiveGarraGarra.FinalActiveGarra();
+  }
+  else if (difTime > 2.5 && difTime < 4.5){
+    mMovefront.finalMoveForwardACtion();
+  } 
+  else if (difTime > 4.5 && difTime < 5){
+    MActiveIntakeIntake.FinalActiveIntake();
+  }
+  else if ( difTime > 5 && difTime < 6){
+    mmMovebackward2Movebackward.finalmovebackwardACtion();
+  }
+  else {
+    mStopaction.finalStopactionACtion();
+  }
+}
 
 @Override
 public void teleopInit() {
@@ -108,7 +146,7 @@ public void teleopInit() {
 
    ///// -----------------------------------  Garra Motor---------------------------------------------------------
 
-   mGarra.comer(mControlBoard.getMecanismosLeftBumper(), mControlBoard.getMecanismosRightBumper(), mControlBoard.getMecanismosAButton(), mControlBoard.getMecanismosBButton());
+   mGarra.comer(mControlBoard.getMecanismosLeftstickY(), mControlBoard.getMecanismosRightBumper(), mControlBoard.getMecanismosAButton(), mControlBoard.getMecanismosBButton());
    SmartDashboard.putBoolean("Get B Button", mControlBoard.getMecanismosAButton());
    SmartDashboard.putNumber("Servo position", mGarra.getPosicion());
   }

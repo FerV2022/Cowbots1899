@@ -28,7 +28,7 @@ public class Shooter extends SubsystemBase{
   //Funcion para disparar
     public void shoot(double Left, double Right){
         shootervelocity = Right - Left;
-        if (Math.abs(shootervelocity)<.15){
+        if (Math.abs(shootervelocity)<0.15){
             shooterMotor.set(0);
         }
         if(shootervelocity<0){
@@ -45,7 +45,7 @@ public class Shooter extends SubsystemBase{
 
     //Funcion para poner salidas a SmartDashBoard 
     public void ShooterLogsOutput(){//codigo para dar salidas a SmartDashBoard/
-        SmartDashboard.putBoolean("Shooter Active", shooterActive);
+        //SmartDashboard.putBoolean("Shooter Active", shooterActive);
     }
         
     @Override

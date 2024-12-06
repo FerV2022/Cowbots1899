@@ -64,10 +64,10 @@ public class TankDrive extends SubsystemBase {
         }
 */
  //cosas de la funcion
- Right1.set(ControlMode.PercentOutput, (realRightSpeed)*0.55);
- Right2.set(ControlMode.PercentOutput, (realRightSpeed)*0.55);
- Left1.set(ControlMode.PercentOutput, -realLeftSpeed);
- Left2.set(ControlMode.PercentOutput, -realLeftSpeed);
+ Right1.set(ControlMode.PercentOutput, (realRightSpeed));
+ Right2.set(ControlMode.PercentOutput, (realRightSpeed));
+ Left1.set(ControlMode.PercentOutput, (-realLeftSpeed));
+ Left2.set(ControlMode.PercentOutput,( -realLeftSpeed));
 }
 
 public void stop(){
@@ -77,7 +77,11 @@ public void stop(){
 public void getOdometry() {
 }
 
-public void outMotoresAuto(double d, double e, double f, double g) {
+public void outMotoresAuto(double Derecha1, double Derecha2, double Izquierda1, double Izquierda2) {
+ Right1.set(ControlMode.PercentOutput, (Derecha1));
+ Right2.set(ControlMode.PercentOutput, (Derecha2));
+ Left1.set(ControlMode.PercentOutput, (-Izquierda1));
+ Left2.set(ControlMode.PercentOutput, (-Izquierda2));
 }
 
 //------------------------funciones del subsystema---------------//

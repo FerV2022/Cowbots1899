@@ -45,6 +45,7 @@ public class ControlBoard {
         return RightTrigger;
     }
 
+
     public boolean getDriverXButton(){
         boolean XButton = driver.getXButton(); // Right Trigger come
         return XButton;
@@ -55,7 +56,6 @@ public class ControlBoard {
         boolean XButton = driver.getBButton(); // Right Trigger come
         return XButton;
     }
-
 
 
 // Control de mecanismos shooter, garra 
@@ -73,8 +73,8 @@ public class ControlBoard {
 
 
     // Garra motor
-    public boolean getMecanismosLeftBumper(){
-        return mecanisms.getLeftBumper(); // Left bumper escupe
+    public double getMecanismosLeftstickY(){
+        return mecanisms.getLeftY(); // Left bumper escupe
     }
 
     public boolean getMecanismosRightBumper(){

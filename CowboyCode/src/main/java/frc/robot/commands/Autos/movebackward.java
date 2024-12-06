@@ -1,12 +1,13 @@
+
 package frc.robot.commands.Autos;
 
 import frc.robot.subsystems.TankDrive;
 
 
-public class Movefront{
+public class movebackward{
   TankDrive mAutoDrive = new TankDrive();
   
-  public void finalMoveForwardACtion(){
-    mAutoDrive.outMotoresAuto(0.3, 0.3, -0.3, -0.3);
+  public void finalmovebackwardACtion(){
+    mAutoDrive.outMotoresAuto(-0.3, -0.3, 0.3, 0.3);
   }
 }

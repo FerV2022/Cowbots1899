@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 
 public class Garra extends SubsystemBase {
@@ -44,7 +45,7 @@ public class Garra extends SubsystemBase {
         }
 
     }*/
-    public void comer(boolean Left, boolean Right,  boolean Abutton, boolean Bbutton){
+    public void comer(double Left, boolean Right,  boolean Abutton, boolean Bbutton){
         if(Abutton){
             posicion = 1.0; 
         } 
@@ -53,11 +54,11 @@ public class Garra extends SubsystemBase {
         }
         servo.setSpeed(posicion);
         
-        if(Left){
-            fedeergarra.set(TalonSRXControlMode.PercentOutput,0.6);
+        if(Math.abs(Left)>0.05){
+            fedeergarra.set(TalonSRXControlMode.PercentOutput,Left);
         }
         else if(Right){
-            fedeergarra.set(TalonSRXControlMode.PercentOutput,-0.6);
+            fedeergarra.set(TalonSRXControlMode.PercentOutput,-0.3);
         }
         else{
             fedeergarra.set(ControlMode.PercentOutput, 0);
@@ -69,6 +70,10 @@ public class Garra extends SubsystemBase {
 
     public double getPosicion(){
         return servo.get();
+    }
+
+    public void outMotoresAuto(double power) {
+        fedeergarra.set(ControlMode.PercentOutput,power);    // para autonomo
     }
 
     //------------------------funciones del subsystema---------------//
