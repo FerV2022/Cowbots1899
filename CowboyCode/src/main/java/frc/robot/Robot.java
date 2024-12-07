@@ -1,6 +1,5 @@
 package frc.robot;
 
-import java.util.ResourceBundle.Control;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,7 +16,8 @@ import frc.robot.subsystems.TankDrive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Garra;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.Timer;
+import frc.robot.commands.Autos.ActiveGarraStop;
+import frc.robot.commands.Autos.StopIntake;
 
 
 /**
@@ -35,13 +35,13 @@ public class Robot extends TimedRobot {
   private Shooter mShooter;
   GetTimeAction mGetTimeAction;
   Movefront mmMovefront;
-  Stopaction mStopaction;
+  Stopaction mStopaction = new Stopaction();
   GetTimeAction mAutoTimer = new GetTimeAction();
-  Movefront mMovefront = new Movefront();
+  Movefront mMovefront;
   Stopaction mStopaction2Stopaction = new Stopaction();
   ActiveIntake MActiveIntakeIntake = new ActiveIntake();
   ActiveGarra mActiveGarraGarra;
-  movebackward mmMovebackward2Movebackward = new movebackward();
+  movebackward mmMovebackward2Movebackward; 
 
 
 
@@ -61,7 +61,8 @@ public class Robot extends TimedRobot {
     mGarra = new Garra();
     mShooter = new Shooter();
     mActiveGarraGarra = new ActiveGarra(mGarra);
-    
+    mmMovebackward2Movebackward = new movebackward(mTankDrive);
+    mMovefront = new Movefront(mTankDrive);
 
   }
 
@@ -102,22 +103,52 @@ public void autonomousInit() {
 @Override
 public void autonomousPeriodic() {
   mAutoTimer.autoAbsoluteTimeControl();
-  double difTime = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
-  if(difTime<2.5){
-    mActiveGarraGarra.FinalActiveGarra();
+  double difTime = mAutoTimer.getAbsoluteTimer() - mAutoTimer.getRelativeTimer();
+  int stage;
+
+  if (difTime < 1.5) {
+    stage = 1;
+  } else if (difTime >= 1.5 && difTime < 2) {
+    stage = 2;
+  } else if (difTime >= 2 && difTime < 5) {
+    stage = 3;
+  //} else if (difTime >= 5.5 && difTime < 6.5) {
+  // stage = 4;
+  } else if (difTime >= 6 && difTime < 6.5) {
+    stage = 4;  
+  } else {
+    stage = 0;
   }
-  else if (difTime > 2.5 && difTime < 4.5){
-    mMovefront.finalMoveForwardACtion();
-  } 
-  else if (difTime > 4.5 && difTime < 5){
-    MActiveIntakeIntake.FinalActiveIntake();
+
+  switch (stage) {
+    case 0: 
+    mStopaction.finalStopactionACtion(mGarra);
+    mTankDrive.outMotoresAuto(0, 0, 0, 0);
+    case 1:
+      mActiveGarraGarra.FinalActiveGarra();
+      break;
+    case 2:
+      mStopaction.finalStopactionACtion(mGarra);
+      break;
+    case 3:
+      mIntake.outMotoresAuto(-0.3);
+      mTankDrive.outMotoresAuto(-0.3,-0.3 , -0.3, -0.3);
+      MActiveIntakeIntake.FinalActiveIntake();
+      mIntake.outMotoresAuto(-0.3);
+      break;
+    /*case 4:
+      MActiveIntakeIntake.FinalActiveIntake();
+      mIntake.outMotoresAuto(-0.3);
+      break;*/
+    case 4:
+      mmMovebackward2Movebackward.finalmovebackwardACtion();
+      mTankDrive.outMotoresAuto(0.2, 0.2, 0.2, 0.2);
+      break;
+    default:
+      //mStopaction.finalStopactionACtion(mGarra);
+      break;
   }
-  else if ( difTime > 5 && difTime < 6){
-    mmMovebackward2Movebackward.finalmovebackwardACtion();
-  }
-  else {
-    mStopaction.finalStopactionACtion();
-  }
+
 }
 
 @Override

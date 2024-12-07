@@ -5,9 +5,16 @@ import frc.robot.subsystems.TankDrive;
 
 
 public class movebackward{
-  TankDrive mAutoDrive = new TankDrive();
+  
+  private TankDrive mTankDrive; 
+
+  public movebackward(TankDrive tankDrive){
+    mTankDrive= tankDrive;
+
+  }
+      
   
   public void finalmovebackwardACtion(){
-    mAutoDrive.outMotoresAuto(-0.3, -0.3, 0.3, 0.3);
+    mTankDrive.outMotoresAuto(0.3, 0.3, -0.3, -0.3);
   }
 }

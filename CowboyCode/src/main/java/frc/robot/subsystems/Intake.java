@@ -24,13 +24,13 @@ public class Intake extends SubsystemBase{
             velocidad=0;
         }
         if(velocidad<0){
-            Intake2.set(TalonSRXControlMode.PercentOutput, 0.3);    
+            Intake2.set(TalonSRXControlMode.PercentOutput, 0.55);    
         }
         else if(velocidad>0.75){
-            Intake2.set(TalonSRXControlMode.PercentOutput, -0.7);
+            Intake2.set(TalonSRXControlMode.PercentOutput, -1);
         }
         else if(velocidad<0.75 && velocidad>0){   
-            Intake2.set(TalonSRXControlMode.PercentOutput, -0.4);
+            Intake2.set(TalonSRXControlMode.PercentOutput, -1);
         }
         else{
             Intake2.set(TalonSRXControlMode.PercentOutput, 0);

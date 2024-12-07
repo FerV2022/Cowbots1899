@@ -6,6 +6,6 @@ public class ActiveIntake {
     Intake mIntake = new Intake();
 
     public void FinalActiveIntake(){
-        mIntake.outMotoresAuto(0.3);
+        mIntake.outMotoresAuto(-0.3);
     }
 }

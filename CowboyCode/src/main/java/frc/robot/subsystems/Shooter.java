@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase{
             shooterMotor.set(0);
         }
         if(shootervelocity<0){
-            shooterMotor.set( 0.5);
+            shooterMotor.set( 0.4);
         }
         else if(shootervelocity>0){   
             shooterMotor.set(-0.4);
