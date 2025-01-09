@@ -1,3 +1,7 @@
+//  Creado por : Karol, Ximee, Fer (además de Rafa, Gaeta y Python)
+
+
+
 package frc.robot;
 
 
@@ -42,10 +46,6 @@ public class Robot extends TimedRobot {
   ActiveIntake MActiveIntakeIntake = new ActiveIntake();
   ActiveGarra mActiveGarraGarra;
   movebackward mmMovebackward2Movebackward; 
-
-
-
-
 
   /**
    * This function is run when the robot is first started up and should be used for any

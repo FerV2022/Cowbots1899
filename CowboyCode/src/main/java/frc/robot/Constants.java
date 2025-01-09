@@ -16,7 +16,7 @@ public final class Constants {
   public static final int kDriverControllerPort = 0;
   //public static final int kShooter1Id = 6;
   public static final int kIntake = 7;
-  public static final int servo = 1;
+  public static final int servo = 2;
   public static final int kShooter5Id = 10;
   public static final int fedeergarra = 8;
   //public static double shootervelocity = 0.3;

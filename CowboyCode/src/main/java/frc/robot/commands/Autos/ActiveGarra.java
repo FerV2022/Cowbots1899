@@ -10,7 +10,7 @@ public class ActiveGarra {
     }
 
     public void FinalActiveGarra(){
-        mGarra.outMotoresAuto(-0.35);
+        mGarra.outMotoresAuto(-0.40);
     }
     
 }

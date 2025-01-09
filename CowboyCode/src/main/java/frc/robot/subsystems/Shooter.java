@@ -28,14 +28,14 @@ public class Shooter extends SubsystemBase{
   //Funcion para disparar
     public void shoot(double Left, double Right){
         shootervelocity = Right - Left;
-        if (Math.abs(shootervelocity)<0.15){
+        if (Math.abs(shootervelocity)<0.35){
             shooterMotor.set(0);
         }
         if(shootervelocity<0){
-            shooterMotor.set( 0.4);
+            shooterMotor.set( 0.45);
         }
         else if(shootervelocity>0){   
-            shooterMotor.set(-0.4);
+            shooterMotor.set(-0.45);
         }
         else{
             shooterMotor.set(0);
